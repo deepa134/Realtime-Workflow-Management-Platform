@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
+#from django.contrib.auth.models import AbstractUser
+from django.db import models
 
-# Create your models here.
+
+
 class Workflow(models.Model):
     name=models.CharField(max_length=255)
     description=models.TextField(blank=True)
@@ -10,7 +13,7 @@ class Workflow(models.Model):
         return self.name
 
 class Task(models.Model):
-    Workflow=models.ForeignKey(Workflow,on_delete=models.CASCADE,related_name='tasks')
+    workflow=models.ForeignKey(Workflow,on_delete=models.CASCADE,related_name='tasks')
     title=models.CharField(max_length=255)
     status=models.CharField(max_length=50,default='pending')
     created_at=models.DateTimeField(auto_now_add=True)
