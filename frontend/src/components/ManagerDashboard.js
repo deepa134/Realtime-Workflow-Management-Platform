@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../api/api";
+import WorkflowDetail from "./WorkflowDetail";
+import "../styles.css";
 
 function ManagerDashboard() {
   const [tasks, setTasks] = useState([]);
@@ -12,6 +14,8 @@ function ManagerDashboard() {
   const [startDate, setStartDate] = useState("");
   const [dueDate, setDueDate] = useState("");
   const [workflowId, setWorkflowId] = useState("");
+
+  const [selectedWorkflowId, setSelectedWorkflowId] = useState(null); // NEW: for workflow detail page
 
   useEffect(() => {
     fetchTasks();
@@ -48,18 +52,15 @@ function ManagerDashboard() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await api.post("tasks/", {
-        title: title,
-        status: status.toLowerCase(),          // match Django choices
-        workflow: Number(workflowId),          // ensure ID is a number
+        title,
+        status: status.toLowerCase(),
+        workflow: Number(workflowId),
         assigned_to: assignedTo ? Number(assignedTo) : null,
         start_date: startDate,
         due_date: dueDate,
       });
-
-      // Reset form
       setTitle("");
       setStatus("Pending");
       setWorkflowId("");
@@ -97,105 +98,71 @@ function ManagerDashboard() {
     tasks: tasks.filter((task) => task.workflow && task.workflow.id === wf.id),
   }));
 
+  // --- New: render WorkflowDetail if a workflow is selected ---
+  if (selectedWorkflowId) {
+    return (
+      <WorkflowDetail
+        workflowId={selectedWorkflowId}
+        onBack={() => setSelectedWorkflowId(null)}
+      />
+    );
+  }
+
+  // --- Manager dashboard cards layout ---
   return (
-    <div>
+    <div className="manager-dashboard-container">
       <h2>Manager Dashboard</h2>
 
-      {/* Task creation form */}
-      <h3>Create Task</h3>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Task Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
+      {/* Workflow Cards Grid */}
+      <div className="workflow-cards-grid">
+        {workflows.map((wf, index) => {
+          // Generate different top border color for each card
+          const colors = ["#FF6B6B", "#4D96FF", "#FFA500", "#6BCB77"];
+          const color = colors[index % colors.length];
 
-        <select
-          value={workflowId}
-          onChange={(e) => setWorkflowId(e.target.value)}
-          required
-        >
-          <option value="">Select Workflow</option>
-          {workflows.map((wf) => (
-            <option key={wf.id} value={wf.id}>
-              {wf.name}
-            </option>
-          ))}
-        </select>
+          const wfTasks = tasks.filter(t => t.workflow?.id === wf.id);
+          const total = wfTasks.length;
+          const pending = wfTasks.filter(t => t.status.toLowerCase() === "pending").length;
+          const inProgress = wfTasks.filter(t => t.status.toLowerCase() === "in progress").length;
+          const done = wfTasks.filter(t => t.status.toLowerCase() === "completed").length;
 
-        <select
-          value={assignedTo}
-          onChange={(e) => setAssignedTo(e.target.value)}
-        >
-          <option value="">Assign To (optional)</option>
-          {users.map((u) => (
-            <option key={u.id} value={u.id}>
-              {u.username}
-            </option>
-          ))}
-        </select>
+          return (
+            <div key={wf.id} className="workflow-card" style={{ borderTop: `4px solid ${color}` }}>
+              <h3>{wf.name}</h3>
+              <p>Total Tasks: {total}</p>
+              <p>
+                Pending: <span style={{ color: "#FF6B6B" }}>{pending}</span> | 
+                In Progress: <span style={{ color: "#FFA500" }}>{inProgress}</span> | 
+                Done: <span style={{ color: "#6BCB77" }}>{done}</span>
+              </p>
+              <div className="card-buttons">
+                <button className="access-btn" onClick={() => setSelectedWorkflowId(wf.id)}>Access</button>
+                <button className="delete-btn" onClick={() => handleDelete(wf.id)}>🗑️</button>
+              </div>
+            </div>
+          );
+        })}
 
-        <label>Start Date:</label>
-        <input
-          type="date"
-          value={startDate}
-          onChange={(e) => setStartDate(e.target.value)}
-        />
-
-        <label>Due Date:</label>
-        <input
-          type="date"
-          value={dueDate}
-          onChange={(e) => setDueDate(e.target.value)}
-        />
-
-        <select
-          value={status}
-          onChange={(e) => setStatus(e.target.value)}
-          required
-        >
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-        </select>
-
-        <button type="submit">Create Task</button>
-      </form>
-
-      {/* Tasks grouped by workflow */}
-      <h3>All Tasks</h3>
-      {groupedTasks.map((group) => (
-        <div key={group.workflow.id} style={{ marginBottom: "20px" }}>
-          <h4>{group.workflow.name}</h4>
-          {group.tasks.length > 0 ? (
-            <ul>
-              {group.tasks.map((task) => (
-                <li key={task.id}>
-                  <b>{task.title}</b> — {task.status}
-                  <br />
-                  Assigned To: {task.assigned_to ? task.assigned_to.username : "None"}
-                  <br />
-                  Start: {task.start_date ? task.start_date.split("T")[0] : "Not set"}
-                  <br />
-                  Due: {task.due_date ? task.due_date.split("T")[0] : "Not set"}
-                  <br />
-                  <button onClick={() => handleDelete(task.id)}>Delete</button>
-                  <button onClick={() => handleStatusChange(task.id, "In Progress")}>
-                    Mark In Progress
-                  </button>
-                  <button onClick={() => handleStatusChange(task.id, "Completed")}>
-                    Mark Completed
-                  </button>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No tasks under this workflow.</p>
-          )}
+        {/* Create New Workflow Card */}
+        <div className="workflow-card create-card">
+          <h3>Create New</h3>
+          <input
+            type="text"
+            placeholder="Workflow Title"
+            value={workflowId}
+            onChange={(e) => setWorkflowId(e.target.value)}
+          />
+          <button className="create-btn" onClick={() => {
+            if (!workflowId.trim()) return alert("Enter workflow title");
+            api.post("workflows/", { name: workflowId, description: "" })
+              .then(() => {
+                setWorkflowId("");
+                fetchWorkflows();
+              })
+              .catch(err => alert("Failed to create workflow"));
+          }}>+ Create Workflow</button>
         </div>
-      ))}
+      </div>
     </div>
   );
 }

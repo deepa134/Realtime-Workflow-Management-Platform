@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import api from "../api/api";
+import "../styles.css";
 
 function EmployeeDashboard() {
   const [tasks, setTasks] = useState([]);
   const userId = parseInt(localStorage.getItem("userId"));
 
-  useEffect(() => {
-    fetchTasks();
-  }, []);
+  useEffect(() => { fetchTasks(); }, []);
 
   const fetchTasks = async () => {
     try {
       const res = await api.get("tasks/");
-      // filter only tasks assigned to this employee
       const myTasks = res.data.filter(
         (t) => t.assigned_to && t.assigned_to.id === userId
       );
@@ -32,19 +30,23 @@ function EmployeeDashboard() {
   };
 
   return (
-    <div>
+    <div className="dashboard-container">
       <h2>Employee Dashboard</h2>
-      {tasks.length === 0 && <p>No tasks assigned.</p>}
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            {task.title} - {task.status}
-            {task.status !== "done" && (
-              <button onClick={() => markDone(task.id)}>Mark Done</button>
-            )}
-          </li>
-        ))}
-      </ul>
+      {tasks.length === 0 ? <p>No tasks assigned.</p> : (
+        <div className="task-grid">
+          {tasks.map((task) => (
+            <div key={task.id} className="task-card">
+              <b>{task.title}</b>
+              <p>Status: <span className={`badge ${task.status}`}>{task.status}</span></p>
+              <p>Start: {task.start_date ? task.start_date.split("T")[0] : "Not set"}</p>
+              <p>Due: {task.due_date ? task.due_date.split("T")[0] : "Not set"}</p>
+              {task.status !== "done" && (
+                <button className="completed" onClick={() => markDone(task.id)}>Mark Done</button>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

@@ -1,0 +1,464 @@
+/* General Body */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f7f7f7;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #1f3a93;
+  color: white;
+}
+
+.dashboard-header h1 {
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.dashboard-header span {
+  margin-right: 15px;
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Workflow Grid */
+.workflow-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Workflow Card */
+.workflow-card {
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 10px;
+  padding: 15px;
+  width: 250px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.workflow-card:hover {
+  transform: translateY(-5px);
+}
+
+.workflow-card h3 {
+  margin: 0 0 10px 0;
+  font-size: 1.2rem;
+}
+
+.workflow-card p {
+  margin: 5px 0;
+}
+
+/* Status badges */
+.status.pending {
+  color: #e67e22;
+  font-weight: bold;
+}
+.status.inprogress {
+  color: #f39c12;
+  font-weight: bold;
+}
+.status.done {
+  color: #27ae60;
+  font-weight: bold;
+}
+
+/* Card buttons */
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.access-btn {
+  background-color: #6a5acd;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.access-btn:hover {
+  background-color: #483d8b;
+}
+
+.delete-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.delete-btn:hover {
+  background-color: #c0392b;
+}
+
+/* Create Workflow Card */
+.create-card {
+  border: 2px dashed #2ecc71;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-card input {
+  margin: 10px 0;
+  padding: 6px;
+  width: 80%;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.create-btn {
+  background-color: #2ecc71;
+  color: white;
+  border: none;
+  padding: 6px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.create-btn:hover {
+  background-color: #27ae60;
+}
+
+/* Floating Chat Bubble */
+.chat-bubble {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #6a5acd;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+.tasks-grid {
+  padding: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.task-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.task-card:hover {
+  transform: translateY(-5px);
+}
+
+.create-task-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-task-form input, .create-task-form select {
+  margin: 5px 0;
+  padding: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.cancel-btn {
+  margin-top: 10px;
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cancel-btn:hover {
+  background-color: #c0392b;
+}
+.task-form-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+}
+
+.create-task-btn {
+  background-color: #4D96FF;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.workflow-flowchart {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  padding-bottom: 20px;
+}
+
+.flowchart-card {
+  min-width: 250px;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.flowchart-card:hover {
+  transform: translateY(-5px);
+}
+
+.task-buttons button {
+  margin-right: 5px;
+  margin-top: 5px;
+  padding: 5px 8px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #FF6B6B;
+  color: white;
+}
+
+.status-btn {
+  background-color: #4D96FF;
+  color: white;
+}
+.manager-dashboard-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.workflow-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.workflow-card {
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  width: 220px;
+  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease;
+}
+
+.workflow-card:hover {
+  transform: translateY(-5px);
+}
+
+.workflow-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.access-btn {
+  background-color: #4D96FF;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #FF6B6B;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.create-card {
+  border: 2px dashed #28a745;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.create-card input {
+  margin: 10px 0;
+  padding: 5px;
+  width: 90%;
+}
+
+.create-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.workflow-detail-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.back-btn {
+  background: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+/* Workflow Header Card */
+.workflow-header-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-top: 5px solid #28a745;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+}
+
+.workflow-title {
+  font-size: 1.6rem;
+  font-weight: bold;
+  color: #28a745;
+}
+
+.workflow-desc {
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Horizontal Flowchart of Tasks */
+.workflow-flowchart {
+  display: flex;
+  overflow-x: auto;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.flowchart-task-card {
+  min-width: 200px;
+  background: white;
+  border-radius: 10px;
+  padding: 15px;
+  border-top: 4px solid #4D96FF;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.flowchart-task-card h4 {
+  margin-bottom: 8px;
+}
+
+.status-pending {
+  color: #FF6B6B;
+  font-weight: bold;
+}
+
+.status-in-progress {
+  color: #FFA500;
+  font-weight: bold;
+}
+
+.status-completed {
+  color: #6BCB77;
+  font-weight: bold;
+}
+
+.task-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.status-btn {
+  background-color: #4D96FF;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.status-btn.completed {
+  background-color: #6BCB77;
+}
+
+.delete-btn {
+  background-color: #FF6B6B;
+  color: white;
+  border: none;
+  padding: 5px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* Task Creation Card */
+.task-create-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-top: 4px solid #28a745;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.task-create-card form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-btn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}
