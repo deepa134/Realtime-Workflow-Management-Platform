@@ -12,9 +12,20 @@ function LoginForm({ onLogin }) {
       const res = await api.post("login/", { username, password });
 
       if (res.data.success) {
-        localStorage.setItem("role", res.data.role);
-        localStorage.setItem("userId", res.data.user_id);
-        onLogin(res.data.role);
+        // Assume the API response includes the username for display
+        const userRole = res.data.role;
+        const userId = res.data.user_id;
+        // 💡 CRITICAL FIX: The username from the form input is the display name
+        const userNameForDisplay = username; 
+        
+        localStorage.setItem("role", userRole);
+        localStorage.setItem("userId", userId);
+        // 💡 FIX 1: Save the username for display in localStorage
+        localStorage.setItem("userName", userNameForDisplay); 
+
+        // 💡 FIX 2: Pass all three required values to App.jsx's handleLogin
+        onLogin(userRole, userId, userNameForDisplay); 
+        
         setError("");
       } else {
         setError(res.data.error);
@@ -54,7 +65,7 @@ function LoginForm({ onLogin }) {
   );
 }
 
-// Styles
+// Styles (styles remain unchanged)
 const containerStyle = {
   display: "flex",
   justifyContent: "center",

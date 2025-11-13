@@ -1,464 +1,493 @@
-/* General Body */
+/* --------------------------------------------------------------------
+   I. BASE & GLOBAL STYLES
+   -------------------------------------------------------------------- */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f7f7f7;
-  color: #333;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f9; /* Soft light background */
+    color: #333;
+    min-height: 100vh;
 }
 
-/* Header */
+/* --------------------------------------------------------------------
+   II. DASHBOARD HEADER & BUTTONS
+   -------------------------------------------------------------------- */
 .dashboard-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 15px 30px;
-  background-color: #1f3a93;
-  color: white;
+    background-color: #17a2b8; /* Professional Teal for header */
+    color: white;
+    padding: 15px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-header h1 {
-  margin: 0;
-  font-size: 1.8rem;
+.dashboard-header h1,
+.manager-dashboard-container h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
 }
 
-.dashboard-header span {
-  margin-right: 15px;
+/* Manager Dashboard specific header alignment */
+.manager-dashboard-container h2 {
+    padding: 20px 40px 10px 40px;
+    color: #17a2b8;
 }
 
 .logout-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #dc3545; /* Danger Red */
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s;
 }
 
 .logout-btn:hover {
-  background-color: #c0392b;
+    background-color: #c82333;
 }
 
-/* Workflow Grid */
-.workflow-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 30px;
+/* Detail Page Back Button - General Styling */
+.back-btn {
+    background: none;
+    border: 1px solid #ced4da;
+    color: #495057;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.3s, color 0.3s;
+    margin-bottom: 20px; /* Added margin for spacing */
+}
+.back-btn:hover {
+    background-color: #e9ecef;
 }
 
-/* Workflow Card */
+/* --------------------------------------------------------------------
+   III. WORKFLOW DASHBOARD GRIDS & CARDS
+   -------------------------------------------------------------------- */
+.workflow-grid,
+.workflow-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 30px 40px;
+}
+
 .workflow-card {
-  background: white;
-  border: 2px solid #ccc;
-  border-radius: 10px;
-  padding: 15px;
-  width: 250px;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    padding: 25px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 150px;
+    border-left: 5px solid;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .workflow-card:hover {
-  transform: translateY(-5px);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
 }
 
 .workflow-card h3 {
-  margin: 0 0 10px 0;
-  font-size: 1.2rem;
+    margin: 0 0 15px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #343a40;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
 }
 
 .workflow-card p {
-  margin: 5px 0;
+    margin: 4px 0;
+    font-size: 0.9rem;
+    color: #495057;
 }
 
-/* Status badges */
-.status.pending {
-  color: #e67e22;
-  font-weight: bold;
+/* Status Indicators (General Dashboard Cards) */
+.status, 
+.workflow-card span {
+    font-weight: 600;
+    margin-left: 3px;
 }
-.status.inprogress {
-  color: #f39c12;
-  font-weight: bold;
-}
-.status.done {
-  color: #27ae60;
-  font-weight: bold;
-}
+.status.pending, 
+.workflow-card span[style*="#FF6B6B"] { color: #ffc107 !important; }
+.status.inprogress,
+.workflow-card span[style*="#FFA500"] { color: #17a2b8 !important; }
+.status.done,
+.workflow-card span[style*="#6BCB77"] { color: #28a745 !important; }
 
-/* Card buttons */
+/* ----------------- Card Footer & Actions ----------------- */
 .card-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #eee;
 }
 
 .access-btn {
-  background-color: #6a5acd;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    flex-grow: 1;
+    transition: background-color 0.3s;
 }
-.access-btn:hover {
-  background-color: #483d8b;
-}
+.access-btn:hover { background-color: #138496; }
 
-.delete-btn {
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
+.delete-btn { /* General delete button, used for workflow cards */
+    background: none;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    width: 38px;
+    padding: 8px 0;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    flex-grow: 0;
+    transition: all 0.2s;
 }
 .delete-btn:hover {
-  background-color: #c0392b;
+    background-color: #dc3545;
+    color: white;
 }
 
-/* Create Workflow Card */
-.create-card {
-  border: 2px dashed #2ecc71;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* Admin Dashboard Specific Adjustments */
+.workflow-grid .access-btn { display: none; }
+.workflow-grid .card-buttons { justify-content: center; }
+.workflow-grid .delete-btn {
+    width: 100%;
+    max-width: 150px;
 }
 
-.create-card input {
-  margin: 10px 0;
-  padding: 6px;
-  width: 80%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+/* ----------------- Create Workflow Card ----------------- */
+.workflow-card.create-card {
+    border: 2px dashed #17a2b8;
+    background-color: #ffffff;
+    box-shadow: none;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
+.workflow-card.create-card:hover {
+    background-color: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+.workflow-card.create-card h3 {
+    color: #17a2b8;
+    margin-bottom: 20px;
+    border-bottom: none;
+}
+.workflow-card.create-card input {
+    padding: 10px 12px;
+    width: 90%;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    border: 1px solid #ced4da;
+    font-size: 0.9rem;
+}
+.workflow-card.create-card .create-btn {
+    background: #17a2b8;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-weight: 500;
+    width: 90%;
+    transition: background-color 0.3s;
+}
+.workflow-card.create-card .create-btn:hover { background: #138496; }
 
-.create-btn {
-  background-color: #2ecc71;
-  color: white;
-  border: none;
-  padding: 6px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-}
 
-.create-btn:hover {
-  background-color: #27ae60;
-}
-
-/* Floating Chat Bubble */
-.chat-bubble {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #6a5acd;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-.tasks-grid {
-  padding: 30px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 20px;
-}
-
-.task-card {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-}
-
-.task-card:hover {
-  transform: translateY(-5px);
-}
-
-.create-task-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.create-task-form input, .create-task-form select {
-  margin: 5px 0;
-  padding: 6px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-.cancel-btn {
-  margin-top: 10px;
-  background-color: #e74c3c;
-  color: white;
-  border: none;
-  padding: 6px 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.cancel-btn:hover {
-  background-color: #c0392b;
-}
-.task-form-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  margin-bottom: 30px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-}
-
-.create-task-btn {
-  background-color: #4D96FF;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-top: 10px;
-}
-
-.workflow-flowchart {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  padding-bottom: 20px;
-}
-
-.flowchart-card {
-  min-width: 250px;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  box-shadow: 0px 3px 10px rgba(0,0,0,0.1);
-  flex-shrink: 0;
-  transition: transform 0.2s ease;
-}
-
-.flowchart-card:hover {
-  transform: translateY(-5px);
-}
-
-.task-buttons button {
-  margin-right: 5px;
-  margin-top: 5px;
-  padding: 5px 8px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-.delete-btn {
-  background-color: #FF6B6B;
-  color: white;
-}
-
-.status-btn {
-  background-color: #4D96FF;
-  color: white;
-}
-.manager-dashboard-container {
-  padding: 20px;
-  background-color: #f8f9fa;
-}
-
-.workflow-cards-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.workflow-card {
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  width: 220px;
-  box-shadow: 0px 4px 15px rgba(0,0,0,0.1);
-  transition: transform 0.2s ease;
-}
-
-.workflow-card:hover {
-  transform: translateY(-5px);
-}
-
-.workflow-card h3 {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-}
-
-.card-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
-}
-
-.access-btn {
-  background-color: #4D96FF;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.delete-btn {
-  background-color: #FF6B6B;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.create-card {
-  border: 2px dashed #28a745;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.create-card input {
-  margin: 10px 0;
-  padding: 5px;
-  width: 90%;
-}
-
-.create-btn {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-}
+/* --------------------------------------------------------------------
+   IV. WORKFLOW DETAIL PAGE LAYOUT (Professional Kanban Style)
+   -------------------------------------------------------------------- */
 .workflow-detail-container {
-  padding: 20px;
-  background-color: #f8f9fa;
+    padding: 20px 40px;
+    background-color: #f4f7f9;
+    min-height: 100vh;
 }
 
-.back-btn {
-  background: #6c757d;
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-/* Workflow Header Card */
+/* Workflow Header Card - Elevated Design */
 .workflow-header-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  border-top: 5px solid #28a745;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+    background: linear-gradient(135deg, #4b37a8, #138496); /* Deep Purple Gradient */
+    color: white;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
-.workflow-title {
-  font-size: 1.6rem;
-  font-weight: bold;
-  color: #28a745;
+.workflow-header-card .workflow-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin: 0;
+    letter-spacing: 0.5px;
 }
 
-.workflow-desc {
-  color: #6c757d;
-  margin-top: 5px;
+.workflow-header-card .workflow-desc {
+    font-size: 1rem;
+    color: #e9ecef;
+    margin-top: 5px;
 }
 
-/* Horizontal Flowchart of Tasks */
-.workflow-flowchart {
-  display: flex;
-  overflow-x: auto;
-  gap: 15px;
-  margin-bottom: 20px;
+/* Main Content Area: Form Sidebar + Kanban Board */
+.workflow-content-area {
+    display: flex;
+    gap: 30px; /* Space between form and kanban board */
+    align-items: flex-start; /* Aligns content to the top */
 }
+
+/* Task Creation Form (Fixed-width side panel) */
+.task-create-card {
+    flex-shrink: 0;
+    width: 300px; /* Slightly smaller width for the form */
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    align-self: flex-start; /* Ensures it stays at the top */
+    position: sticky; /* Sticky sidebar */
+    top: 20px; /* Distance from the top of the viewport */
+}
+
+.task-create-card h3 {
+    font-size: 1.4rem;
+    color: #4b37a8;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid #f0f0f0; 
+    padding-bottom: 10px;
+}
+
+/* Form Input Styles for Task Creation */
+.task-create-card input,
+.task-create-card select {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+.task-create-card label {
+    font-size: 0.85rem;
+    color: #495057;
+    margin-bottom: 5px;
+    display: block;
+}
+.task-create-card .create-btn {
+    background: #4b37a8;
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+.task-create-card .create-btn:hover { background: #3a2a85; }
+
+
+.workflow-flowchart { /* This is now the Kanban board container */
+    flex-grow: 1;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(280px, 1fr)); /* 3 columns, more controlled width */
+    gap: 20px; /* Gap between Kanban columns */
+}
+
+.kanban-column {
+    padding: 15px;
+    border-radius: 8px;
+    background-color: #e9ecef; /* Light gray background for the column */
+    min-height: 400px;
+    display: flex; /* Flex container for tasks inside column */
+    flex-direction: column;
+    gap: 15px; /* Gap between task cards */
+}
+
+.kanban-column h3 {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: 700;
+    padding-bottom: 10px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #495057;
+    border-bottom: 2px solid #ced4da;
+    flex-shrink: 0; /* Prevent title from shrinking */
+}
+
+/* Empty State Message for Kanban Columns */
+.kanban-column .empty-state {
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    padding: 20px;
+    border: 1px dashed #cccccc;
+    border-radius: 6px;
+    margin: auto 0; /* Center vertically in the column */
+}
+
+
+
+   
 
 .flowchart-task-card {
-  min-width: 200px;
-  background: white;
-  border-radius: 10px;
-  padding: 15px;
-  border-top: 4px solid #4D96FF;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    border-left: 4px solid;
+    transition: transform 0.2s;
+    /* margin-bottom: 15px; removed as gap on .kanban-column handles spacing */
+}
+
+.flowchart-task-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .flowchart-task-card h4 {
-  margin-bottom: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 10px 0;
+    color: #343a40;
 }
 
-.status-pending {
-  color: #FF6B6B;
-  font-weight: bold;
+.flowchart-task-card p {
+    font-size: 0.9rem;
+    color: #6c757d;
+    margin: 5px 0;
 }
 
-.status-in-progress {
-  color: #FFA500;
-  font-weight: bold;
+/* Status Badges within Kanban Task Cards */
+.flowchart-task-card p span {
+    font-weight: 700; /* Make status text bold */
+    margin-left: 5px; /* Space between "Status:" and the actual status */
 }
+.status-pending { color: #ffc107; }
+.status-in-progress { color: #17a2b8; }
+.status-completed { color: #28a745; }
 
-.status-completed {
-  color: #6BCB77;
-  font-weight: bold;
-}
+/* Border Colors based on Status for Task Cards */
+.status-card-pending { border-left-color: #ffc107; }
+.status-card-in-progress { border-left-color: #17a2b8; }
+.status-card-completed { border-left-color: #28a745; }
 
+/* Task Card Actions */
 .task-card-buttons {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 10px;
+    display: flex;
+    gap: 5px;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f0f0;
 }
 
-.status-btn {
-  background-color: #4D96FF;
-  color: white;
-  border: none;
-  padding: 5px 8px;
-  border-radius: 6px;
-  cursor: pointer;
+.task-card-buttons .delete-btn {
+    background: #f8d7da;
+    border: 1px solid #dc3545;
+    color: #dc3545;
+    padding: 6px 8px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    width: 35px;
+    flex-grow: 0;
+    line-height: 1; /* Center trash icon vertically */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.task-card-buttons .delete-btn:hover { background: #dc3545; color: white; }
+
+.task-card-buttons .status-btn {
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: none;
+    flex-grow: 1;
+    background-color: #17a2b8; /* Default for "In Progress" */
+    color: white;
+    white-space: nowrap; /* Prevent button text from wrapping */
 }
 
-.status-btn.completed {
-  background-color: #6BCB77;
+.task-card-buttons .status-btn.completed {
+    background-color: #28a745;
 }
 
-.delete-btn {
-  background-color: #FF6B6B;
-  color: white;
-  border: none;
-  padding: 5px 8px;
-  border-radius: 6px;
-  cursor: pointer;
+.task-card-buttons .status-btn:hover {
+    opacity: 0.9;
 }
 
-/* Task Creation Card */
-.task-create-card {
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
-  border-top: 4px solid #28a745;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+.task-card-buttons .status-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background-color: #cccccc; /* Neutral disabled color */
+    color: #666666;
 }
 
-.task-create-card form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Loading State for Workflow Detail Page */
+.loading-state {
+    text-align: center;
+    padding: 50px;
+    font-size: 1.2rem;
+    color: #6c757d;
 }
 
-.create-btn {
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
+/* --------------------------------------------------------------------
+   VII. Responsive Adjustments
+   -------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+    .workflow-content-area {
+        flex-direction: column; /* Stack form and kanban on smaller screens */
+    }
+    .task-create-card {
+        width: 100%; /* Full width form */
+        position: static; /* Remove sticky behavior */
+        margin-bottom: 20px;
+        top: auto;
+    }
+    .workflow-flowchart {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjust Kanban columns */
+    }
+}
+
+@media (max-width: 768px) {
+    .workflow-detail-container {
+        padding: 15px;
+    }
+    .workflow-header-card {
+        padding: 20px;
+    }
+    .workflow-header-card .workflow-title {
+        font-size: 1.8rem;
+    }
+    .workflow-flowchart {
+        grid-template-columns: 1fr; /* Single column for Kanban on very small screens */
+    }
 }

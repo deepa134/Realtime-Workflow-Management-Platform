@@ -76,13 +76,15 @@ function ManagerDashboard() {
 
   const handleDelete = async (id) => {
     try {
-      await api.delete(`tasks/${id}/`);
+      // Note: This delete handles tasks, but the button below handles workflows.
+      await api.delete(`tasks/${id}/`); 
       fetchTasks();
     } catch (error) {
       console.error("Error deleting task", error);
     }
   };
-
+  
+  // NOTE: This function is for changing task status, not used in the current ManagerDashboard render
   const handleStatusChange = async (id, newStatus) => {
     try {
       await api.patch(`tasks/${id}/`, { status: newStatus.toLowerCase() });
@@ -91,8 +93,21 @@ function ManagerDashboard() {
       console.error("Error updating status", error);
     }
   };
-
-  // Group tasks by workflow
+  
+  // New function to delete a workflow (used by the delete button in the workflow card)
+  const handleDeleteWorkflow = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this workflow and all its associated tasks?")) return;
+    try {
+        await api.delete(`workflows/${id}/`);
+        fetchWorkflows();
+        fetchTasks(); // Refresh tasks as they might have been deleted/orphaned
+    } catch (error) {
+        console.error("Error deleting workflow", error);
+        alert("Failed to delete workflow. Ensure no related objects prevent deletion.");
+    }
+  };
+  
+  // Group tasks by workflow (kept for completeness, though not used in the current render)
   const groupedTasks = workflows.map((wf) => ({
     workflow: wf,
     tasks: tasks.filter((task) => task.workflow && task.workflow.id === wf.id),
@@ -111,7 +126,11 @@ function ManagerDashboard() {
   // --- Manager dashboard cards layout ---
   return (
     <div className="manager-dashboard-container">
-      <h2>Manager Dashboard</h2>
+      {/* ❌ REMOVED: The redundant local title <h2>Manager Dashboard</h2> is deleted. 
+           The title is handled by the Header component in App.jsx. */}
+      
+      {/* Added content-specific title for context */}
+      <h2 className="manager-dashboard-container">Active Workflows Overview</h2>
 
       {/* Workflow Cards Grid */}
       <div className="workflow-cards-grid">
@@ -137,7 +156,8 @@ function ManagerDashboard() {
               </p>
               <div className="card-buttons">
                 <button className="access-btn" onClick={() => setSelectedWorkflowId(wf.id)}>Access</button>
-                <button className="delete-btn" onClick={() => handleDelete(wf.id)}>🗑️</button>
+                {/* Updated delete button to use workflow delete logic */}
+                <button className="delete-btn" onClick={() => handleDeleteWorkflow(wf.id)}>🗑️</button> 
               </div>
             </div>
           );

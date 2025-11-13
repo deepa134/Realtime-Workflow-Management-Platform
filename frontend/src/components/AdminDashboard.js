@@ -36,8 +36,9 @@ function AdminDashboard() {
 
   return (
     <div>
-      {/* Header */}
-      <header className="dashboard-header">
+      {/* ❌ REMOVED: The entire redundant <header> block is deleted here. 
+           This was the explicit, second header causing the duplicate. */}
+      {/* <header className="dashboard-header">
         <h1>Workflow Dashboard</h1>
         <div>
           <span>Welcome, Admin</span>
@@ -46,7 +47,11 @@ function AdminDashboard() {
             window.location.reload();
           }}>Logout</button>
         </div>
-      </header>
+      </header> 
+      */}
+      
+      {/* Added content-specific title for context */}
+      <h2 className="manager-dashboard-container">All Workflows</h2>
 
       {/* Workflow Grid */}
       <div className="workflow-grid">
